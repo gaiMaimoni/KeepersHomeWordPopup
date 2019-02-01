@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Keepers Home Word Popup</string>
+	<string name="logo">logo</string>
+	<string name="week_number">W%1$d</string>
+	<string name="hours_minutes">%1$dH %2$dM</string>
+	<string name="main_title">%1$s"'"s Monthly Statistics</string>
+	<string name="sub_title">%1$s"'"s weekly screen time\n\t\t\t in the last month</string>
+	<string name="footer_statistic">\t\t\t\t\tA %1$s! -year-old child send/receives an \n\t\t\taverage%2$s! bad conversations in one day"</string>
+	<string name="pop_up">Pop up</string>
+</resources>

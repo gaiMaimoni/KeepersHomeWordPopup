@@ -1,0 +1,16 @@
+POPUP for App
+In this app i create a popup for keepers child safety
+ tha popup show a monthly statistically of using in the device and show  the bad word
+
+I create  a 4 classes to emulate the the kid statistic:
+    *Child represents the kid :
+     in the  class child have a method that create a random statistic to simulate data base
+
+
+    *DailyInfo represents the using on the device in one day
+
+    *WeeklyInfo represents the using on the device in one week ,and contain average from this week
+
+    *MonthlyInfo represents the using on the device in one month,and contain average from this month
+
+to change the data on my App need to chane the   NAME, AGE, MONTH,NUMOFDAYS fixed variables
