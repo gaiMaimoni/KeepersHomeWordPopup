@@ -18,15 +18,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     //-----------------------------------Fixed variables--------------------------------------------------------------//
     val NAME:String="Gai"
     val AGE:Int=30
-    val NUMOFDAYS:Int=30
+    val NUMOFDAYS:Int=33
     val MONTH:String="April"
+    val MAXIMAGE=6
     //----------------------------------------------------------------------------------------------------------------//
     private lateinit var popup_button: Button
     private lateinit var main_title: TextView
     private lateinit var sub_title: TextView
     private lateinit var month_title: TextView
     private lateinit var summaryTv: TextView
-//    private lateinit var backgroundView: View
     private lateinit var graphsView: LinearLayout
     private lateinit var bottom_line: View
     private lateinit var positions: Vector<FloatArray>
@@ -50,15 +50,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         sub_title = findViewById(R.id.sub_title)
         month_title = findViewById(R.id.month_tv)
         summaryTv = findViewById(R.id.bottom_text)
-//        backgroundView = findViewById(R.id.background)
         graphsView = findViewById(R.id.graphs_view)
         bottom_line = findViewById(R.id.bottom_line)
         child = Child(NAME, AGE, NUMOFDAYS, MONTH)
         child.addRandomData()
         columnHeight()
+        addLabelsOfWeeks(this)
         addAllClocksImages()
         addLines(this)
-        addLabelsOfWeeks()
+
         addTitle(child.getName())
         addMonth(child.getMonthlyUsage().getMonthName())
         addSummary(" " + child.getAverageBadWords(), child.getAge())
@@ -78,14 +78,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         summaryTv.text = getString(R.string.footer_statistic,age,average)
     }
     //-----------------------------------Add weeks W1....Wn-----------------------------------------------------------//
-    private fun addLabelsOfWeeks() {
+    private fun addLabelsOfWeeks(context: Context) {
+        val weeksBar: LinearLayout = findViewById(R.id.weeksBar)
         for (i in 1..child.getNumOfWeeks()) {
             val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val view = inflater.inflate(R.layout.weekly_label_layout, null)
+
             val weekTV: TextView = view.findViewById(R.id.week_tv)
-            val weeksBar: LinearLayout = findViewById(R.id.weeksBar)
+            weekTV.id=i-1
             weekTV.text = getString(R.string.week_number,i)
-            view.x = positions[i-1][0]
+            val display = windowManager.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val width = size.x/4
+            view.x +=(i-1)*(width/child.getNumOfWeeks())+(MAXIMAGE-child.getNumOfWeeks())*width/4
+            println("wfsdgdsgsd"+view.x)
             weeksBar.addView(view)
         }
     }
@@ -123,7 +130,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val hm = child.getAveFormatHM(i)
         lblScreenTime.text = getString(R.string.hours_minutes,hm[1],hm[0])
         val l1: LinearLayout = findViewById(R.id.images)
-
         view.doOnPreDraw {
             if (i == 0) {
                 imageSize[0] = view.width
@@ -138,9 +144,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
-        val width = size.x/3.5
-        positions[i][0]=((imageSize[0]+i*(width.toInt()/child.getNumOfWeeks())))*1F
-        view.x =  positions[i][0]
+        val width = size.x/4
+        view.x += i*(width/child.getNumOfWeeks())+(MAXIMAGE-child.getNumOfWeeks())*width/4
+        println(view.x)
         view.y = positions[i][1]
         l1.addView(view)
     }

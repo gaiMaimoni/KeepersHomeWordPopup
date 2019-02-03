@@ -27,5 +27,5 @@
 			app:layout_constraintBottom_toTopOf="@+id/imageView"
 			android:textAlignment="center"
 			android:textSize="8sp"
-			android:layout_marginStart="3dp"/>
+	/>
 </android.support.constraint.ConstraintLayout>
